@@ -5,18 +5,24 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
-    ports:
-      - "8000:8000"
+    command: ["tail", "-f", "/dev/null"]
   frontend:
     image: "frontend:${TAG-latest}"
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
     ports:
-      - "20000:5173"
+      - "20000:3000"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend:/src/app
+      - /src/app/node_modules
+    command: ["pnpm", "dev"]
+  admin:
+    image: "admin:${TAG-latest}"
+    build:
+      context: ./admin
+      dockerfile: Dockerfile.dev
+    command: ["tail", "-f", "/dev/null"]
   db:
     image: mysql
     environment:

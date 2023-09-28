@@ -4,12 +4,14 @@
 
 ## QuickStart
 
-**目前只有 DB 拉的起来，前后端 dockerfile 还没写，各自对应的组麻烦自己完善一下**
+**目前 backend 和 admin 的 Dockerfile 是空壳，麻烦对应小组自行维护起来**
 
 1. `git clone https://github.com/USC-CGSA-Tech/discount-card.git`
-2. 若是全部服务拉起来则是 `make launch-XXX` XXX 为 dev 或 prod
-3. 指定服务则是 `make launch-XXX SERVICE=YYY` YYY 为 db, frontend, backend, admin
-4. 各自项目内容直接在各自地方开发就行【记得建各自分支，main 会锁起来】
+2. 若是全部服务拉起来则是 `make start-dev`
+3. 指定服务则是 `make start-dev SERVICE=XXX` XXX 为 db, frontend, backend, admin
+4. 镜像销毁使用命令`make stop-dev`
+
+各自项目内容直接在各自地方开发就行【记得建各自分支，main 会设置为保护分支】
 
 ## 技术架构
 
