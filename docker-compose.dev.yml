@@ -1,0 +1,33 @@
+version: "0.1.0"
+services:
+  backend:
+    image: "backend:${TAG-latest}"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+  frontend:
+    image: "frontend:${TAG-latest}"
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "20000:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: discount_card
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_pass
+    ports:
+      - 3306:3306
+    volumes:
+      - discount_card_db_data:/var/lib/mysql
+
+volumes:
+  discount_card_db_data:
