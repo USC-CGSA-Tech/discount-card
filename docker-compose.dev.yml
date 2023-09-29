@@ -6,6 +6,10 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     command: ["tail", "-f", "/dev/null"]
+    environment:  # 添加环境变量
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/discount_card?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: test_user
+      SPRING_DATASOURCE_PASSWORD: test_pass
   frontend:
     image: "frontend:${TAG-latest}"
     build:
