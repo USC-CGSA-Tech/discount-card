@@ -5,7 +5,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
-    command: ["tail", "-f", "/dev/null"]
+    command: mvn spring-boot:run
+    depends_on:
+      - db
     environment:  # 添加环境变量
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/discount_card?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       SPRING_DATASOURCE_USERNAME: test_user
@@ -35,7 +37,7 @@ services:
       MYSQL_USER: test_user
       MYSQL_PASSWORD: test_pass
     ports:
-      - 3306:3306
+      - 3307:3306
     volumes:
       - discount_card_db_data:/var/lib/mysql
 
