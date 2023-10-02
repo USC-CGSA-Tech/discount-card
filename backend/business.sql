@@ -1,5 +1,40 @@
-INSERT INTO `business` VALUES (1, 'asdasd', '123123123', '123das12', '123123@mail.com', '123123123', '123123123', 'asdasd', 'http://dasdasd', NULL, 0, '2023-10-01 14:01:31');
-INSERT INTO `business` VALUES (2, 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-01 15:26:18', NULL, '2023-10-01 15:26:18');
-INSERT INTO `business` VALUES (3, 'test3', NULL, NULL, '111@email.com', NULL, NULL, NULL, NULL, '2023-10-01 15:41:05', 0, '2023-10-01 16:16:15');
-INSERT INTO `business` VALUES (4, 'test4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-01 15:41:17', 0, '2023-10-01 15:41:17');
-INSERT INTO `business` VALUES (5, 'test4', '123123123', 'asddas123123', 'asdasdasd', 'asdasdsad', 'asdasdasd', NULL, NULL, '2023-10-01 15:41:41', 1, '2023-10-01 16:06:19');
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : discount_staff
+ Source Server Type    : MySQL
+ Source Server Version : 80034
+ Source Host           : localhost:3306
+ Source Schema         : discount_staff
+
+ Target Server Type    : MySQL
+ Target Server Version : 80034
+ File Encoding         : 65001
+
+ Date: 01/10/2023 17:06:14
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for business
+-- ----------------------------
+DROP TABLE IF EXISTS `business`;
+CREATE TABLE `business`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `telephone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `wechat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `promotion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_deleted` int NULL DEFAULT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
