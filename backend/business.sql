@@ -31,6 +31,7 @@ CREATE TABLE `business`  (
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `promotion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `release_time` timestamp DEFAULT NULL COMMENT '折扣卡上线时间',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` int NULL DEFAULT NULL,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
