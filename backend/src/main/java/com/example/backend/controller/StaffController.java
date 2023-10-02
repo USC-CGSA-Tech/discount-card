@@ -2,7 +2,6 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Response.Response;
 import com.example.backend.model.entity.BusinessEntity;
-import com.example.backend.model.entity.UpdateBusinessEntity;
 import com.example.backend.model.vo.BusinessVO;
 import com.example.backend.service.StaffService;
 import io.swagger.annotations.Api;
@@ -50,7 +49,7 @@ public class StaffController {
 
     @ApiOperation("Update Record")
     @PostMapping(value = "/update")
-    public Response update(@RequestBody UpdateBusinessEntity entity) {
+    public Response update(@RequestBody BusinessEntity entity) {
         staffService.update(entity);
         return Response.ok();
     }

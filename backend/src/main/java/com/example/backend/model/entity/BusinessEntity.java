@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Data
 public class BusinessEntity {
+    private Long id;
     @ApiParam(value = "商家名")
     private String name;
 
@@ -31,6 +32,9 @@ public class BusinessEntity {
     private String description;
 
     private String promotion;
+
+    @ApiParam(value = "上线时间")
+    private String releaseTime;
 
     @ApiParam(value = "商家照片")
     private String imageUrl;

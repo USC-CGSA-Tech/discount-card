@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    password: root
+    password: Zhz19980514!
     url: jdbc:mysql://127.0.0.1:3306/discount_staff?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 

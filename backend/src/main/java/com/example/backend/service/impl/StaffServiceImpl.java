@@ -1,18 +1,14 @@
 package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.backend.mapper.StaffMapper;
 import com.example.backend.model.entity.BusinessEntity;
-import com.example.backend.model.entity.UpdateBusinessEntity;
 import com.example.backend.model.vo.BusinessVO;
 import com.example.backend.service.StaffService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -62,7 +58,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public void update(UpdateBusinessEntity entity) {
+    public void update(BusinessEntity entity) {
         BusinessVO vo = new BusinessVO();
         BeanUtils.copyProperties(entity, vo);
 
