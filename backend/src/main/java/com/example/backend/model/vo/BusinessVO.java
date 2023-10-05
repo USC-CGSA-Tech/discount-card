@@ -25,6 +25,7 @@ public class BusinessVO {
     private String description;
     private String promotion;
     private String imageUrl;
+    private Date releaseTime;
     private Date createdAt;
     private Date updatedAt;
     private Integer isDeleted;
