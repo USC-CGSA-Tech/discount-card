@@ -1,9 +1,7 @@
 import React from 'react';
-import { Button } from 'antd';
-import Link from 'next/link';
-import CSRInputExample from '@/components/CSRInputExample';
-import { BusinessProps } from '@/components/BusinessCard';
-import BusinessCard from '@/components/BusinessCard';
+import BusinessCardGrid from '@/components/BusinessCardGrid';
+import { BusinessCardGridProps } from '@/components/BusinessCardGrid';
+import NavBar from '@/components/Navbar';
 
 async function getBusinessList() {
   try {
@@ -42,20 +40,32 @@ export async function getServerSideProps() {
 }
 
 type HomeProps = {
-  businessList: Array<BusinessProps>;
+  businessList: BusinessCardGridProps['businessCards'];
 };
 
 function Home({ businessList }: HomeProps) {
-  console.log('businessList:', businessList);
+  const [search, setSearch] = React.useState('');
+  const [current, setCurrent] = React.useState('food');
+  const handleClick = (e: any) => {
+    console.log('click ', e);
+    if (e.key === 'search') {
+      return;
+    }
+    // TODO: filter business list by category
+    setCurrent(e.key);
+  };
+  const handleChange = (e: any) => {
+    console.log('change ', e);
+    setSearch(e.target.value);
+  };
+  const filteredBusinessList = businessList.filter((business) => {
+    return business.name.toLowerCase().includes(search.toLowerCase());
+  });
+  console.log('filteredBusinessList:', filteredBusinessList);
   return (
     <div>
-      <CSRInputExample />
-      <Button>
-        <Link href="/">To indexsssss!</Link>
-      </Button>
-      {businessList.map((business) => (
-        <BusinessCard {...business} />
-      ))}
+      <NavBar current={current} onClick={handleClick} search={search} onChange={handleChange} />
+      <BusinessCardGrid businessCards={filteredBusinessList} />
     </div>
   );
 }

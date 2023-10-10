@@ -5,7 +5,7 @@ const { Meta } = Card;
 
 type BusinessProps = {
   id?: number;
-  name?: string;
+  name: string;
   telephone?: string;
   wechat?: string;
   email?: string;
@@ -17,14 +17,19 @@ type BusinessProps = {
   createdAt?: Date;
   updatedAt?: Date;
   isDeleted?: number;
-}
+};
 
 function BusinessCard(props: BusinessProps) {
   return (
     <Card
       hoverable
       style={{ width: 240 }}
-      cover={<img alt={'example'} src={'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'} />}
+      cover={
+        <img
+          alt={'example'}
+          src={'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg'}
+        />
+      }
     >
       <Meta title={props.name} description={props.description} />
     </Card>
