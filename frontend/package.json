@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fix": "prettier --write **/*.tsx",
-    "prepare": "cd .. && husky install frontend/.husky"
+    "fix": "prettier --write **/*.tsx"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -18,11 +17,6 @@
     "*.{html,css,less,scss,md}": [
       "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "@types/node": "20.6.5",
@@ -56,7 +50,6 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-security": "^1.7.1",
     "eslint-webpack-plugin": "^4.0.1",
-    "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "sass": "^1.68.0"
   }
