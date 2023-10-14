@@ -6,7 +6,7 @@
     "dev": "max dev",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install admin/.husky",
     "setup": "max setup",
     "start": "npm run dev"
   },
