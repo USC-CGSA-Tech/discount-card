@@ -31,7 +31,12 @@ services:
     build:
       context: ./admin
       dockerfile: Dockerfile.dev
-    command: ["tail", "-f", "/dev/null"]
+    ports:
+      - "20001:8000"
+    volumes:
+      - ./admin:/src/app
+      - /src/app/node_modules
+    command: ["pnpm", "dev"]
   db:
     image: mysql
     environment:
