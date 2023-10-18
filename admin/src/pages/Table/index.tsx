@@ -189,13 +189,16 @@ const TableList: React.FC<unknown> = () => {
           console.log(data);
           console.log(code);
           const ret = {
-            data: data|| [],
+            data: data || [],
             success: code === 200,
           };
           console.log(ret);
           return ret;
         }}
         columns={columns}
+        rowSelection={{
+          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
+        }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
