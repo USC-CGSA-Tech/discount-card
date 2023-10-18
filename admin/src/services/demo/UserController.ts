@@ -2,20 +2,21 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
+const BaseUrl = 'http://localhost:8081/staff';
+
 /** 此处后端没有提供注释 GET /api/v1/queryUserList */
 export async function queryUserList(
   params: {
     // query
-    /** keyword */
-    keyword?: string;
-    /** current */
-    current?: number;
+    /** index */
+    index?: number;
     /** pageSize */
     pageSize?: number;
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.Result_PageInfo_UserInfo__>('/api/v1/queryUserList', {
+  console.log('queryUserList', params);
+  return request<API.Result_PageInfo_UserInfo__>(`${BaseUrl}/getAll`, {
     method: 'GET',
     params: {
       ...params,
@@ -29,7 +30,7 @@ export async function addUser(
   body?: API.UserInfoVO,
   options?: { [key: string]: any },
 ) {
-  return request<API.Result_UserInfo_>('/api/v1/user', {
+  return request<API.Result_UserInfo_>(`${BaseUrl}/insert`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

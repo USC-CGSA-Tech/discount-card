@@ -56,9 +56,9 @@ public class StaffController {
 
     @ApiOperation("Get All Record")
     @GetMapping(value = "getAll")
-    public Response getAll(@RequestParam(required = false,defaultValue = "1") Integer index,
+    public Response getAll(@RequestParam(required = false,defaultValue = "1") Integer current,
                            @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
-        List<BusinessVO> list = staffService.getAll(index, pageSize);
+        List<BusinessVO> list = staffService.getAll(current, pageSize);
         return Response.ok(list);
     }
 

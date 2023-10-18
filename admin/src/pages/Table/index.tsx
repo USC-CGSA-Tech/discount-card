@@ -7,7 +7,7 @@ import {
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message } from 'antd';
+import { Button, Drawer, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
@@ -92,50 +92,69 @@ const TableList: React.FC<unknown> = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
   const columns: ProDescriptionsItemProps<API.UserInfo>[] = [
     {
-      title: '名称',
-      dataIndex: 'name',
-      tip: '名称是唯一的 key',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '名称为必填项',
-          },
-        ],
-      },
+      title: 'ID',
+      dataIndex: 'id',
+      valueType: 'digit',
     },
     {
-      title: '昵称',
-      dataIndex: 'nickName',
+      title: 'Name',
+      dataIndex: 'name',
       valueType: 'text',
     },
     {
-      title: '性别',
-      dataIndex: 'gender',
-      hideInForm: true,
-      valueEnum: {
-        0: { text: '男', status: 'MALE' },
-        1: { text: '女', status: 'FEMALE' },
-      },
+      title: 'Telephone',
+      dataIndex: 'telephone',
+      valueType: 'text',
     },
     {
-      title: '操作',
-      dataIndex: 'option',
-      valueType: 'option',
-      render: (_, record) => (
-        <>
-          <a
-            onClick={() => {
-              handleUpdateModalVisible(true);
-              setStepFormValues(record);
-            }}
-          >
-            配置
-          </a>
-          <Divider type="vertical" />
-          <a href="">订阅警报</a>
-        </>
-      ),
+      title: 'WeChat',
+      dataIndex: 'wechat',
+      valueType: 'text',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      valueType: 'text',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      valueType: 'text',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      valueType: 'text',
+    },
+    {
+      title: 'Promotion',
+      dataIndex: 'promotion',
+      valueType: 'text',
+    },
+    {
+      title: 'Image',
+      dataIndex: 'imageUrl',
+      valueType: 'text',
+    },
+    {
+      title: 'Release Time',
+      dataIndex: 'releaseTime',
+      valueType: 'dateTime',
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      valueType: 'dateTime',
+    },
+    {
+      title: 'Updated At',
+      dataIndex: 'updatedAt',
+      valueType: 'dateTime',
+    },
+    {
+      title: 'Is Deleted',
+      dataIndex: 'isDeleted',
+      valueType: 'text',
     },
   ];
 
@@ -162,22 +181,21 @@ const TableList: React.FC<unknown> = () => {
           </Button>,
         ]}
         request={async (params, sorter, filter) => {
-          const { data, success } = await queryUserList({
+          const { data, code } = await queryUserList({
             ...params,
             // FIXME: remove @ts-ignore
             // @ts-ignore
-            sorter,
-            filter,
           });
-          return {
-            data: data?.list || [],
-            success,
+          console.log(data);
+          console.log(code);
+          const ret = {
+            data: data|| [],
+            success: code === 200,
           };
+          console.log(ret);
+          return ret;
         }}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-        }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
