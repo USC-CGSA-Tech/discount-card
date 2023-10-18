@@ -1,13 +1,7 @@
 import React from 'react';
-import { Button } from 'antd';
-import Link from 'next/link';
 
 function Home() {
-  return (
-    <Button>
-      <Link href="home">To home!</Link>
-    </Button>
-  );
+  return <div className="desktop:text-purple-500">hello world!</div>;
 }
 
 export default Home;
