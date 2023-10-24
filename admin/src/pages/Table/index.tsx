@@ -70,7 +70,7 @@ const handleRemove = async (selectedRows: API.UserInfo[]) => {
   if (!selectedRows) return true;
   try {
     await deleteUser({
-      userId: selectedRows.find((row) => row.id)?.id || '',
+      id: selectedRows.find((row) => row.id)?.id || '',
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -168,9 +168,7 @@ const TableList: React.FC<unknown> = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
+        search={false}
         toolBarRender={() => [
           <Button
             key="1"

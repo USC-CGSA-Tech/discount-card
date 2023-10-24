@@ -64,5 +64,21 @@ declare namespace API {
     email?: string;
   }
 
+  interface BusinessInfo {
+    id: string;
+    name: string;
+    telephone: string;
+    wechat: string;
+    email: string;
+    address: string;
+    description: string;
+    promotion: string;
+    imageUrl: string;
+    releaseTime: string;
+    createdAt: string;
+    updatedAt: string;
+    isDeleted: integer;
+  }
+
   type definitions_0 = null;
 }

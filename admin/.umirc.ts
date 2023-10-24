@@ -29,6 +29,11 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
+    {
+      name: '管理店铺',
+      path: '/manage',
+      component: './Manage',
+    }
   ],
   npmClient: 'pnpm',
 });

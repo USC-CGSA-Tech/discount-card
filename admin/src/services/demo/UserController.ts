@@ -58,22 +58,15 @@ export async function getUserDetail(
 }
 
 /** 此处后端没有提供注释 PUT /api/v1/user/${param0} */
-export async function modifyUser(
-  params: {
-    // path
-    /** userId */
-    userId?: string;
-  },
+export async function updateUser(
   body?: API.UserInfoVO,
   options?: { [key: string]: any },
 ) {
-  const { userId: param0 } = params;
-  return request<API.Result_UserInfo_>(`/api/v1/user/${param0}`, {
-    method: 'PUT',
+  return request<API.Result_UserInfo_>(`${BaseUrl}/update`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    params: { ...params },
     data: body,
     ...(options || {}),
   });
@@ -83,14 +76,13 @@ export async function modifyUser(
 export async function deleteUser(
   params: {
     // path
-    /** userId */
-    userId?: string;
+    id?: string;
   },
   options?: { [key: string]: any },
 ) {
-  const { userId: param0 } = params;
-  return request<API.Result_string_>(`/api/v1/user/${param0}`, {
-    method: 'DELETE',
+  console.log('deleteUser', params);
+  return request<API.Result_string_>(`${BaseUrl}/del`, {
+    method: 'GET',
     params: { ...params },
     ...(options || {}),
   });
