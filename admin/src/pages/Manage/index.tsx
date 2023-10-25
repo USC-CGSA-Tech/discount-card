@@ -59,7 +59,6 @@ const ManagePage: React.FC = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const actionRef = useRef<ActionType>();
-  let tempIdCounter = -1;
   const columns = [
     {
       title: '名称',
@@ -160,15 +159,7 @@ const ManagePage: React.FC = () => {
           type: 'multiple',
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            console.log(rowKey, data, row);
-            if (rowKey < 0) {
-              let dataId = data.id;
-              delete data.id;
-              await handleAdd(data);
-              data.id = dataId;
-            } else {
-              await handleUpdate(data);
-            }
+            await handleUpdate(data);
           },
           onDelete: async (rowKey, data) => {
             console.log(rowKey, data);
