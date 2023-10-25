@@ -20,7 +20,7 @@ const handleAdd = async (fields) => {
     return true;
   } catch (error) {
     hide();
-    message.error('添加失败请重试！');
+    message.error('添加失败请重试！ error: ' + error.message || '');
     return false;
   }
 };
@@ -34,7 +34,7 @@ const handleUpdate = async (fields) => {
     return true;
   } catch (error) {
     hide();
-    message.error('配置失败请重试！');
+    message.error('配置失败请重试！ error: ' + error.message || '');
     return false;
   }
 };
@@ -50,7 +50,7 @@ const handleDelete = async (row_id: string) => {
     return true;
   } catch (error) {
     hide();
-    message.error('删除失败，请重试');
+    message.error('删除失败，请重试！ error: ' + error.message || '');
     return false;
   }
 };
