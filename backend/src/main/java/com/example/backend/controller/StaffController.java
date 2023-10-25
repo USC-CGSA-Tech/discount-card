@@ -34,28 +34,28 @@ public class StaffController {
     }
 
     @ApiOperation("Insert Record")
-    @PostMapping(value = "/insert")
+    @PostMapping(value = "/business")
     public Response insert(@RequestBody BusinessEntity business) {
         boolean res = staffService.insert(business);
         return Response.ok(res);
     }
 
     @ApiOperation("Delete Record")
-    @DeleteMapping (value = "/del")
+    @DeleteMapping (value = "/business")
     public Response del(Long id) {
         staffService.del(id);
         return Response.ok();
     }
 
     @ApiOperation("Update Record")
-    @PutMapping(value = "/update")
+    @PutMapping(value = "/business")
     public Response update(@RequestBody BusinessEntity entity) {
         staffService.update(entity);
         return Response.ok();
     }
 
     @ApiOperation("Get All Record")
-    @GetMapping(value = "getAll")
+    @GetMapping(value = "/business")
     public Response getAll(@RequestParam(required = false,defaultValue = "1") Integer current,
                            @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
         List<BusinessVO> list = staffService.getAll(current, pageSize);

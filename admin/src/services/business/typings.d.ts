@@ -1,23 +1,16 @@
-/* eslint-disable */
-// 该文件由 OneAPI 自动生成，请勿手动修改！
-
 declare namespace API {
   interface PageInfo {
-    /** 
-1 */
     current?: number;
     pageSize?: number;
     total?: number;
     list?: Array<Record<string, any>>;
   }
 
-  interface PageInfo_UserInfo_ {
-    /** 
-1 */
+  interface PageInfo_BusinessInfo_ {
     current?: number;
     pageSize?: number;
     total?: number;
-    list?: Array<UserInfo>;
+    list?: Array<BusinessInfo>;
   }
 
   interface Result {
@@ -26,42 +19,22 @@ declare namespace API {
     data?: Record<string, any>;
   }
 
-  interface Result_PageInfo_UserInfo__ {
+  interface Result_PageInfo_BusinessInfo__ {
     success?: boolean;
     errorMessage?: string;
-    data?: PageInfo_UserInfo_;
+    data?: PageInfo_BusinessInfo_;
   }
 
-  interface Result_UserInfo_ {
+  interface Result_BusinessInfo_ {
     success?: boolean;
     errorMessage?: string;
-    data?: UserInfo;
+    data?: BusinessInfo;
   }
 
   interface Result_string_ {
     success?: boolean;
     errorMessage?: string;
     data?: string;
-  }
-
-  type UserGenderEnum = 'MALE' | 'FEMALE';
-
-  interface UserInfo {
-    id?: string;
-    name?: string;
-    /** nick */
-    nickName?: string;
-    /** email */
-    email?: string;
-    gender?: UserGenderEnum;
-  }
-
-  interface UserInfoVO {
-    name?: string;
-    /** nick */
-    nickName?: string;
-    /** email */
-    email?: string;
   }
 
   interface BusinessInfo {
@@ -80,5 +53,15 @@ declare namespace API {
     isDeleted: integer;
   }
 
-  type definitions_0 = null;
+  interface BusinessInfoVO {
+    id?: string;
+    name?: string;
+    telephone?: string;
+    wechat?: string;
+    email?: string;
+    address?: string;
+    description?: string;
+    promotion?: string;
+    imageUrl?: string;
+  }
 }

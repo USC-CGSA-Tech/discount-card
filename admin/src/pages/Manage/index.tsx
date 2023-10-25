@@ -1,4 +1,4 @@
-import services from '@/services/demo';
+import services from '@/services/business';
 import {
   ActionType,
   PageContainer,
@@ -6,15 +6,15 @@ import {
 } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import CreateForm from '../Table/components/CreateForm';
+import CreateForm from '../Manage/components/CreateForm';
 
-const { addUser, queryUserList, updateUser, deleteUser } =
-  services.UserController;
+const { addBusiness, queryBusinessList, updateBusiness, deleteBusiness } =
+  services.BusinessController;
 
 const handleAdd = async (fields) => {
   const hide = message.loading('正在添加');
   try {
-    await addUser({ ...fields });
+    await addBusiness({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -28,7 +28,7 @@ const handleAdd = async (fields) => {
 const handleUpdate = async (fields) => {
   const hide = message.loading('正在配置');
   try {
-    await updateUser({ ...fields });
+    await updateBusiness({ ...fields });
     hide();
     message.success('配置成功');
     return true;
@@ -42,7 +42,7 @@ const handleUpdate = async (fields) => {
 const handleDelete = async (row_id: string) => {
   const hide = message.loading('正在删除');
   try {
-    await deleteUser({
+    await deleteBusiness({
       id: row_id,
     });
     hide();
@@ -108,7 +108,6 @@ const ManagePage: React.FC = () => {
         <a
           key="editable"
           onClick={() => {
-            console.log(text, record, _, action);
             action?.startEditable?.(record.id);
           }}
         >
@@ -117,9 +116,8 @@ const ManagePage: React.FC = () => {
         <a
           key="delete"
           onClick={() => {
-            console.log(record);
             handleDelete(record.id);
-            action?.reload?.();
+            actionRef.current?.reload();
           }}
         >
           删除
@@ -146,7 +144,7 @@ const ManagePage: React.FC = () => {
           </Button>,
         ]}
         request={async (params, sorter, filter) => {
-          const { data, code } = await queryUserList({
+          const { data, code } = await queryBusinessList({
             ...params,
           });
           const ret = {
@@ -162,7 +160,6 @@ const ManagePage: React.FC = () => {
             await handleUpdate(data);
           },
           onDelete: async (rowKey, data) => {
-            console.log(rowKey, data);
             await handleDelete(rowKey);
           },
           onChange: setEditableRowKeys,
@@ -177,9 +174,7 @@ const ManagePage: React.FC = () => {
             const success = await handleAdd(value);
             if (success) {
               handleModalVisible(false);
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
+              actionRef.current?.reload();
             }
           }}
           rowKey="id"

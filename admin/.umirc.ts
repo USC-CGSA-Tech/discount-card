@@ -25,11 +25,6 @@ export default defineConfig({
       component: './Access',
     },
     {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
-    },
-    {
       name: '管理店铺',
       path: '/manage',
       component: './Manage',
