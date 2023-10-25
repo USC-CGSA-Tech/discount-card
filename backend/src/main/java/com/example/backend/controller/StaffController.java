@@ -41,14 +41,14 @@ public class StaffController {
     }
 
     @ApiOperation("Delete Record")
-    @GetMapping(value = "/del")
+    @DeleteMapping (value = "/del")
     public Response del(Long id) {
         staffService.del(id);
         return Response.ok();
     }
 
     @ApiOperation("Update Record")
-    @PostMapping(value = "/update")
+    @PutMapping(value = "/update")
     public Response update(@RequestBody BusinessEntity entity) {
         staffService.update(entity);
         return Response.ok();
