@@ -12,15 +12,6 @@ const config: Config = {
       desktop: '1024px',
     },
     extend: {
-      height: {
-        '160': '40rem',
-      },
-      leading: {
-        '14': '3.5rem',
-      },
-      colors: {
-        defaultcolor: '#A90404',
-      },
       fontFamily: {
         sans: ['Roboto', 'Arial', 'sans-serif'],
       },
