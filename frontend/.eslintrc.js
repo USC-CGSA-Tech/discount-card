@@ -9,14 +9,16 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
-    'prettier/react',
+    'prettier',
   ],
   settings: {
     'import/resolver': {
-      node: {
-        extensions: ['.tsx', '.ts', '.js', '.json'],
+      alias: {
+        map: [
+          ['@', '.'], // 将 '@' 替换为实际别名，路径替换为实际的路径
+        ],
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
       },
-      alias: [['src', './src']],
     },
   },
   parser: '@typescript-eslint/parser',
@@ -50,13 +52,5 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
-    'import/resolver': {
-      alias: {
-        map: [
-          ['@', '.'], // 将 '@' 替换为实际别名，路径替换为实际的路径
-        ],
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-      },
-    },
   },
-};
+}
