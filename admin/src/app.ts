@@ -18,6 +18,7 @@ export const layout = () => {
     },
     logout: (initialState: any) => {
       initialState.isLogin = false;
+      localStorage.removeItem('initialState');
       navigate('/login');
     },
   };

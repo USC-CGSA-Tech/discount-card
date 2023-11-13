@@ -1,9 +1,12 @@
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { useModel, useNavigate } from '@umijs/max';
+import { useModel, useNavigate, Navigate} from '@umijs/max';
 
 export default () => {
   const { initialState } = useModel('@@initialState');
   let navigate = useNavigate();
+  if (initialState.isLogin) {
+    return <Navigate to="/" />;
+  }
   return (
     <LoginForm
       title="登录"
