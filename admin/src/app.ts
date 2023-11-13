@@ -16,7 +16,6 @@ export const layout = () => {
     menu: {
       locale: false,
     },
-    title: 'sadfsadf',
     logout: (initialState: any) => {
       initialState.isLogin = false;
       navigate('/login');
