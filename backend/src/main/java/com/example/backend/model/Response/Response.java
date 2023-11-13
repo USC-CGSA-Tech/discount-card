@@ -33,4 +33,11 @@ public class Response {
     public static Response fail(Object data, Integer code, String message) {
         return new Response(data,code,message);
     }
+    public static Response fail( String message) {
+        return new Response(null,999,message);
+    }
+
+    public static Response fail() {
+        return new Response(null,999,"用户名或密码错误");
+    }
 }
