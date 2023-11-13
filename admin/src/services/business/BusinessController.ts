@@ -13,7 +13,6 @@ export async function queryBusinessList(
   },
   options?: { [key: string]: any },
 ) {
-  console.log('queryBusinessList', params);
   return request<API.Result_PageInfo_BusinessInfo__>(`${BaseUrl}/business`, {
     method: 'GET',
     params: {
@@ -57,7 +56,6 @@ export async function deleteBusiness(
   },
   options?: { [key: string]: any },
 ) {
-  console.log('deleteBusiness', params);
   return request<API.Result_string_>(`${BaseUrl}/business`, {
     method: 'DELETE',
     params: { ...params },

@@ -7,28 +7,27 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '@umijs/max',
+    title: '折扣卡管理系统',
   },
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      wrappers: ['@/wrappers/auth'],
+      redirect: '/manage',
     },
     {
-      name: '首页',
-      path: '/home',
-      component: './Home',
-    },
-    {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: '管理店铺',
+      name: '店铺管理',
       path: '/manage',
+      wrappers: ['@/wrappers/auth'],
       component: './Manage',
-    }
+    },
+    {
+      name: '登录',
+      path: '/login',
+      component: './Login',
+      menuRender: false,
+      hideInMenu: true,
+    },
   ],
   npmClient: 'pnpm',
 });

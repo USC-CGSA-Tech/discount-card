@@ -4,9 +4,13 @@ import {
   PageContainer,
   ProTable,
 } from '@ant-design/pro-components';
+import { Access, useAccess } from '@umijs/max';
 import { Button, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import CreateForm from '../Manage/components/CreateForm';
+import EditForm, {
+  convertToPhone,
+  extractPhone,
+} from '../Manage/components/EditForm';
 
 const { addBusiness, queryBusinessList, updateBusiness, deleteBusiness } =
   services.BusinessController;
@@ -57,9 +61,16 @@ const handleDelete = async (row_id: string) => {
 
 const ManagePage: React.FC = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [formInitialValues, setFormInitialValues] = useState<any>({});
   const actionRef = useRef<ActionType>();
+  const access = useAccess();
   const columns = [
+    {
+      title: '图片',
+      dataIndex: 'imageUrl',
+      valueType: 'image',
+    },
     {
       title: '名称',
       dataIndex: 'name',
@@ -79,6 +90,7 @@ const ManagePage: React.FC = () => {
       title: '邮箱',
       dataIndex: 'email',
       valueType: 'text',
+      formItemProps: { rules: [{ type: 'email' }] },
     },
     {
       title: '地址',
@@ -96,32 +108,42 @@ const ManagePage: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: '图片',
-      dataIndex: 'imageUrl',
-      valueType: 'text',
-    },
-    {
       title: '操作',
       valueType: 'option',
       width: 150,
       render: (text, record, _, action) => [
-        <a
-          key="editable"
-          onClick={() => {
-            action?.startEditable?.(record.id);
-          }}
-        >
-          编辑
-        </a>,
-        <a
-          key="delete"
-          onClick={() => {
-            handleDelete(record.id);
-            actionRef.current?.reload();
-          }}
-        >
-          删除
-        </a>,
+        <Access accessible={access.canWrite()} fallback={<div>没有权限</div>}>
+          <a
+            key="editable"
+            onClick={() => {
+              setIsUpdate(true);
+              record.phone = convertToPhone(record.telephone);
+              if (record.imageUrl !== '') {
+                record.image = [
+                  {
+                    uid: '-1', // Unique identifier for the file
+                    name: 'image', // File name
+                    status: 'done', // Status should be 'done' to show as uploaded
+                    url: record.imageUrl, // URL of the uploaded file
+                  },
+                ];
+              }
+              setFormInitialValues(record);
+              handleModalVisible(true);
+            }}
+          >
+            编辑
+          </a>
+          <a
+            key="delete"
+            onClick={() => {
+              handleDelete(record.id);
+              actionRef.current?.reload();
+            }}
+          >
+            删除
+          </a>
+        </Access>,
       ],
     },
   ];
@@ -133,15 +155,27 @@ const ManagePage: React.FC = () => {
         search={false}
         actionRef={actionRef}
         toolBarRender={() => [
-          <Button
-            key="add"
-            type="primary"
-            onClick={() => {
-              handleModalVisible(true);
-            }}
+          <Access
+            accessible={access.canWrite()}
+            fallback={
+              <Button type="primary" disabled>
+                新建{' '}
+              </Button>
+            }
           >
-            新建
-          </Button>,
+            <Button
+              key="add"
+              type="primary"
+              onClick={() => {
+                setFormInitialValues({});
+                setIsUpdate(false);
+                handleModalVisible(true);
+              }}
+            >
+              新建
+            </Button>
+            ,
+          </Access>,
         ]}
         request={async (params, sorter, filter) => {
           const { data, code } = await queryBusinessList({
@@ -153,35 +187,39 @@ const ManagePage: React.FC = () => {
           };
           return ret;
         }}
-        editable={{
-          type: 'multiple',
-          editableKeys,
-          onSave: async (rowKey, data, row) => {
-            await handleUpdate(data);
-          },
-          onDelete: async (rowKey, data) => {
-            await handleDelete(rowKey);
-          },
-          onChange: setEditableRowKeys,
+      />
+      <EditForm
+        title={isUpdate ? '编辑' : '新建'}
+        visible={createModalVisible}
+        setVisible={handleModalVisible}
+        initialValues={formInitialValues}
+        handleSubmit={async (value) => {
+          let handler = isUpdate ? handleUpdate : handleAdd;
+
+          value.telephone = extractPhone(value.phone);
+          value.imageUrl = '';
+
+          if (value.image?.length === 1) {
+            const imageResponse = value.image[0].response;
+            const oldImageurl = value.image[0].url;
+            const filename = imageResponse?.filename;
+            value.imageUrl = filename
+              ? `http://localhost:20002/images/${filename}`
+              : oldImageurl || '';
+          }
+
+          if (isUpdate) {
+            value.id = formInitialValues.id;
+          }
+
+          const success = await handler(value);
+          if (!success) return false;
+
+          handleModalVisible(false);
+          actionRef.current?.reload();
+          return true;
         }}
       />
-      <CreateForm
-        onCancel={() => handleModalVisible(false)}
-        modalVisible={createModalVisible}
-      >
-        <ProTable
-          onSubmit={async (value) => {
-            const success = await handleAdd(value);
-            if (success) {
-              handleModalVisible(false);
-              actionRef.current?.reload();
-            }
-          }}
-          rowKey="id"
-          type="form"
-          columns={columns}
-        />
-      </CreateForm>
     </PageContainer>
   );
 };
