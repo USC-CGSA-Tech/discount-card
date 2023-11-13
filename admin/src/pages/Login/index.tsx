@@ -1,5 +1,5 @@
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { useModel, useNavigate, Navigate} from '@umijs/max';
+import { Navigate, useModel, useNavigate } from '@umijs/max';
 
 export default () => {
   const { initialState } = useModel('@@initialState');
