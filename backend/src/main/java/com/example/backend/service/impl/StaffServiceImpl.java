@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.backend.exception.CustomException;
 import com.example.backend.mapper.StaffMapper;
 import com.example.backend.model.entity.BusinessEntity;
 import com.example.backend.model.vo.BusinessVO;
@@ -9,6 +10,7 @@ import com.example.backend.service.StaffService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
