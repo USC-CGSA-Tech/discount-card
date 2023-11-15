@@ -8,6 +8,7 @@ spring:
 aws:
   region: us-east-1
   s3:
+    folderName: "/upload"
     bucketName: discount-card
     accessKeyId: AKIAZSDPRJOR5NN4HKVH
     secretAccessKey: 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

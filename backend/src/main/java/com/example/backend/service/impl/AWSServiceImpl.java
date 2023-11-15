@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.example.backend.exception.CustomException;
 import com.example.backend.service.AWSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,43 +48,45 @@ public class AWSServiceImpl implements AWSService {
     @Value("${aws.region}")
     private String region;
 
-    private String FolderName = "upload/";
+    @Value("${aws.s3.folderName}")
+    private String folderName;
 
-    private String endpoint = "s3://discount-card/upload/"; //"https://s3-us-west-2.amazonaws.com";"s3://discount-card/upload/";
     @Override
     public String upload(MultipartFile photo) {
-        String tempFileName = photo.getOriginalFilename();
-        String originalFileName = photo.getOriginalFilename();
-        String contentType = photo.getContentType();
-        long fileSize = photo.getSize();
+        s3 = amazonS3();
         String dateDir = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String tempBucketName = FolderName + UUID.randomUUID().toString()+ "_" + dateDir;
-        String filePath = tempBucketName +"/"+ tempFileName;
+        String contentType = photo.getContentType();
+        String originalFile = photo.getOriginalFilename();
+        String type = "";
+        try {
+            type = originalFile.substring(originalFile.lastIndexOf("."));
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+
+        String tempFileName = UUID.randomUUID().toString() + "_" + dateDir + type;
+        long fileSize = photo.getSize();
+
+        String tempBucketName = bucketName + folderName;
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(contentType);
         objectMetadata.setContentLength(fileSize);
         try {
-
             PutObjectResult putObjectResult = s3.putObject(tempBucketName, tempFileName, photo.getInputStream(), objectMetadata);
-            //文件权限,设置为公共读
-            s3.setObjectAcl(tempBucketName, tempFileName, CannedAccessControlList.PublicRead);
         } catch (AmazonServiceException e) {
-            System.out.println(e.getErrorMessage());
+            throw new CustomException(e.getErrorMessage());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new CustomException(e.getMessage());
         }
-        return endpoint + "/" + filePath;
+        return "https://" + bucketName + ".s3.amazonaws.com" + folderName + "/" + tempFileName;
     }
 
-    /*@PostConstruct
-    public void init() {
+    private AmazonS3 amazonS3() {
         AWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-
-        s3 =  AmazonS3ClientBuilder
-                .standard()
-                .withRegion(region)
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();
-
-    }*/
+        AmazonS3ClientBuilder builder = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials));
+        //设置S3的地区
+        builder.setRegion(region);
+        AmazonS3 s3Client = builder.build();
+        return s3Client;
+    }
 }

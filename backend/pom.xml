@@ -44,6 +44,7 @@
             <scope>compile</scope>
         </dependency>
 
+
         <!-- jwt -->
         <dependency>
             <groupId>com.auth0</groupId>

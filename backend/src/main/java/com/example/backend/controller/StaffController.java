@@ -51,6 +51,9 @@ public class StaffController {
         return Response.ok(res);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "token", required = false),
+    })
     @ApiOperation("Upload a photo")
     @PostMapping(value = "/upload")
     public Response upload(@RequestParam("photo") MultipartFile photo) {
@@ -69,6 +72,10 @@ public class StaffController {
         return Response.ok();
     }
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "token", required = false),
+    })
     @ApiOperation("Update Record")
     @PutMapping(value = "/update")
     public Response update(@RequestBody BusinessEntity entity) {
