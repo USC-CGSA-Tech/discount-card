@@ -57,14 +57,7 @@ public class AWSServiceImpl implements AWSService {
         String dateDir = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String contentType = photo.getContentType();
         String originalFile = photo.getOriginalFilename();
-        String type = "";
-        try {
-            type = originalFile.substring(originalFile.lastIndexOf("."));
-        } catch (Exception e) {
-            throw new CustomException(e.getMessage());
-        }
-
-        String tempFileName = UUID.randomUUID().toString() + "_" + dateDir + type;
+        String tempFileName = UUID.randomUUID().toString() + "_" +  originalFile ;
         long fileSize = photo.getSize();
 
         String tempBucketName = bucketName + folderName;
