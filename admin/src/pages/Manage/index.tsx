@@ -203,7 +203,7 @@ const ManagePage: React.FC = () => {
         setVisible={handleModalVisible}
         initialValues={formInitialValues}
         handleSubmit={async (value) => {
-          let handler = isUpdate ? handleUpdate : handleAdd;
+          const handler = isUpdate ? handleUpdate : handleAdd;
 
           value.telephone = extractPhone(value.phone);
           value.imageUrl = '';
