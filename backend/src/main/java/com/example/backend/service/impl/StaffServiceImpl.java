@@ -72,6 +72,7 @@ public class StaffServiceImpl implements StaffService {
     public List<BusinessVO> getAll(Integer index, Integer pageSize) {
         Page<BusinessVO> page = Page.of(index, pageSize);
         LambdaQueryWrapper<BusinessVO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(BusinessVO::getIsDeleted, 0);
         List<BusinessVO> list = mapper.selectPage(page , wrapper).getRecords();
         return list;
     }

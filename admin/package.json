@@ -13,7 +13,9 @@
     "@ant-design/icons": "^5.2.6",
     "@ant-design/pro-components": "^2.6.28",
     "@umijs/max": "^4.0.84",
-    "antd": "^5.9.3"
+    "antd": "^5.9.3",
+    "antd-phone-input": "^0.3.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.23",
