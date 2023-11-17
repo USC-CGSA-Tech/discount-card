@@ -1,9 +1,11 @@
 import {
   ModalForm,
   ProForm,
+  ProFormDatePicker,
   ProFormText,
   ProFormUploadButton,
 } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
 import { Modal } from 'antd';
 import PhoneInput from 'antd-phone-input';
 import { useState } from 'react';
@@ -42,8 +44,8 @@ export function convertToPhone(phone: string) {
 
 export function getUploadImageURL(file) {
   const fileResponse = file.response;
-  const filename = fileResponse?.filename;
-  return `http://localhost:20002/images/${filename}`;
+  const fileURL = fileResponse?.data
+  return fileURL;
 }
 
 export default (props: UpdateFormProps) => {
@@ -56,7 +58,9 @@ export default (props: UpdateFormProps) => {
     if (!valid()) return Promise.reject('不是一个有效的号码');
     return Promise.resolve();
   };
-  const uploadImageURL = 'http://localhost:20002/upload-image/';
+
+  const { token } = useModel('@@initialState').initialState;
+  const uploadImageURL = 'http://localhost:8081/staff/upload';
 
   return (
     <ModalForm
@@ -78,11 +82,13 @@ export default (props: UpdateFormProps) => {
           name: 'file',
           listType: 'picture-card',
           onPreview: async (file) => {
-            console.log(file);
             setPreviewImage(
               file.url || getUploadImageURL(file) || file.thumbUrl,
             );
             setPreviewVisible(true);
+          },
+          headers: {
+            token: token,
           },
         }}
       />
@@ -103,6 +109,7 @@ export default (props: UpdateFormProps) => {
       <ProFormText name="address" label="地址" />
       <ProFormText name="description" label="简介" />
       <ProFormText name="promotion" label="优惠" />
+      <ProFormDatePicker name="releaseTime" label="上线时间" />
     </ModalForm>
   );
 };

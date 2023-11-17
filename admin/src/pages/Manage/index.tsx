@@ -4,7 +4,7 @@ import {
   PageContainer,
   ProTable,
 } from '@ant-design/pro-components';
-import { Access, useAccess } from '@umijs/max';
+import { Access, useAccess, useModel } from '@umijs/max';
 import { Button, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import EditForm, {
@@ -15,10 +15,10 @@ import EditForm, {
 const { addBusiness, queryBusinessList, updateBusiness, deleteBusiness } =
   services.BusinessController;
 
-const handleAdd = async (fields) => {
+const handleAdd = async (token: string, fields) => {
   const hide = message.loading('正在添加');
   try {
-    await addBusiness({ ...fields });
+    await addBusiness(token, { ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -29,10 +29,10 @@ const handleAdd = async (fields) => {
   }
 };
 
-const handleUpdate = async (fields) => {
+const handleUpdate = async (token: string, fields) => {
   const hide = message.loading('正在配置');
   try {
-    await updateBusiness({ ...fields });
+    await updateBusiness(token, { ...fields });
     hide();
     message.success('配置成功');
     return true;
@@ -43,10 +43,10 @@ const handleUpdate = async (fields) => {
   }
 };
 
-const handleDelete = async (row_id: string) => {
+const handleDelete = async (token: string, row_id: string) => {
   const hide = message.loading('正在删除');
   try {
-    await deleteBusiness({
+    await deleteBusiness(token, {
       id: row_id,
     });
     hide();
@@ -65,14 +65,10 @@ const ManagePage: React.FC = () => {
   const [formInitialValues, setFormInitialValues] = useState<any>({});
   const actionRef = useRef<ActionType>();
   const access = useAccess();
+  const { token } = useModel('@@initialState').initialState;
   const columns = [
     {
-      title: '图片',
-      dataIndex: 'imageUrl',
-      valueType: 'image',
-    },
-    {
-      title: '名称',
+      title: '商家名称',
       dataIndex: 'name',
       valueType: 'text',
     },
@@ -108,6 +104,16 @@ const ManagePage: React.FC = () => {
       valueType: 'text',
     },
     {
+      title: '上线时间',
+      dataIndex: 'releaseTime',
+      valueType: 'dateTime',
+    },
+    {
+      title: '图片',
+      dataIndex: 'imageUrl',
+      valueType: 'image',
+    },
+    {
       title: '操作',
       valueType: 'option',
       width: 150,
@@ -137,7 +143,7 @@ const ManagePage: React.FC = () => {
           <a
             key="delete"
             onClick={() => {
-              handleDelete(record.id);
+              handleDelete(token, record.id);
               actionRef.current?.reload();
             }}
           >
@@ -178,12 +184,15 @@ const ManagePage: React.FC = () => {
           </Access>,
         ]}
         request={async (params, sorter, filter) => {
-          const { data, code } = await queryBusinessList({
+          const res = await queryBusinessList(token, {
             ...params,
           });
+          if (res.code !== 200) {
+            message.error(res.message);
+          }
           const ret = {
-            data: data || [],
-            success: code === 200,
+            data: res.data || [],
+            success: res.code === 200,
           };
           return ret;
         }}
@@ -202,17 +211,14 @@ const ManagePage: React.FC = () => {
           if (value.image?.length === 1) {
             const imageResponse = value.image[0].response;
             const oldImageurl = value.image[0].url;
-            const filename = imageResponse?.filename;
-            value.imageUrl = filename
-              ? `http://localhost:20002/images/${filename}`
-              : oldImageurl || '';
+            const fileURL = imageResponse?.data;
+            value.imageUrl = fileURL || oldImageurl || '';
           }
 
           if (isUpdate) {
             value.id = formInitialValues.id;
           }
-
-          const success = await handler(value);
+          const success = await handler(token, value);
           if (!success) return false;
 
           handleModalVisible(false);

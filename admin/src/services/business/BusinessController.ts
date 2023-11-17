@@ -4,6 +4,7 @@ import { request } from '@umijs/max';
 const BaseUrl = 'http://localhost:8081/staff';
 
 export async function queryBusinessList(
+  token: string,
   params: {
     // query
     /** index */
@@ -18,11 +19,15 @@ export async function queryBusinessList(
     params: {
       ...params,
     },
+    headers: {
+      token: token,
+    },
     ...(options || {}),
   });
 }
 
 export async function addBusiness(
+  token: string,
   body?: API.BusinessInfoVO,
   options?: { [key: string]: any },
 ) {
@@ -30,6 +35,7 @@ export async function addBusiness(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      token: token,
     },
     data: body,
     ...(options || {}),
@@ -37,6 +43,7 @@ export async function addBusiness(
 }
 
 export async function updateBusiness(
+  token: string,
   body?: API.BusinessInfoVO,
   options?: { [key: string]: any },
 ) {
@@ -44,6 +51,7 @@ export async function updateBusiness(
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      token: token,
     },
     data: body,
     ...(options || {}),
@@ -51,6 +59,7 @@ export async function updateBusiness(
 }
 
 export async function deleteBusiness(
+  token: string,
   params: {
     id?: string;
   },
@@ -58,6 +67,9 @@ export async function deleteBusiness(
 ) {
   return request<API.Result_string_>(`${BaseUrl}/business`, {
     method: 'DELETE',
+    headers: {
+      token: token,
+    },
     params: { ...params },
     ...(options || {}),
   });
