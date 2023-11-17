@@ -3,6 +3,7 @@ import {
   ProForm,
   ProFormDatePicker,
   ProFormText,
+  ProFormTextArea,
   ProFormUploadButton,
 } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
@@ -108,7 +109,7 @@ export default (props: UpdateFormProps) => {
       <ProFormText name="email" label="邮箱" rules={[{ type: 'email' }]} />
       <ProFormText name="address" label="地址" />
       <ProFormText name="description" label="简介" />
-      <ProFormText name="promotion" label="优惠" />
+      <ProFormTextArea name="promotion" label="优惠" />
       <ProFormDatePicker name="releaseTime" label="上线时间" />
     </ModalForm>
   );
