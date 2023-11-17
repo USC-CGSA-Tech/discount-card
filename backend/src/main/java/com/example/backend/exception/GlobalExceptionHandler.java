@@ -32,4 +32,10 @@ public class GlobalExceptionHandler {
     public Response customError(HttpServletRequest request, CustomException e){
         return Response.fail(e.getMsg());
     }
+
+    @ExceptionHandler(ServiceException.class)
+    @ResponseBody
+    public Response serviceError(HttpServletRequest request, ServiceException e){
+        return Response.fail(e.getCode(), e.getMsg());
+    }
 }

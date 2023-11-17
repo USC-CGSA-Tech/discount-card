@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Response.Response;
+import com.example.backend.model.dto.UserDTO;
 import com.example.backend.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,13 +34,9 @@ public class LoginController {
     @ApiOperation("用户登录")
     @PostMapping (value = "/login")
     public Response login(@ApiParam(name = "username", value = "用户名") @RequestParam String username,
-                           @ApiParam(name = "password", value = "密码") @RequestParam String password) {
-        boolean flag = loginService.login(username, password);
-        if (flag) {
-            return Response.ok("登陆成功");
-        } else {
-            return Response.fail();
-        }
+                        @ApiParam(name = "password", value = "密码") @RequestParam String password) {
+        UserDTO vo = loginService.login(username, password);
+        return Response.ok(vo);
 
     }
 

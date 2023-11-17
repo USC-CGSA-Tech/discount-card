@@ -16,4 +16,6 @@ public class UserEntity {
     @ApiParam(value = "密码")
     private String password;
 
+    private String token;
+
 }
