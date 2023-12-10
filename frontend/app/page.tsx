@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Header from '@/components/header';
+import Layout from '@/components/layout';
 
 interface NavBtnProps {
   text: string;
@@ -21,10 +21,9 @@ function NavBtn(props: NavBtnProps) {
 
 function Home() {
   return (
-    <div>
-      <Header />
+    <Layout>
       <div className="px-5">
-        <div className="flex flex-col justify-center items-center text-6xl py-8">
+        <div className="flex flex-col justify-center items-center text-5xl py-8 font-bold">
           <div>USC CGSA</div>
           <div>折扣卡商家</div>
         </div>
@@ -35,7 +34,7 @@ function Home() {
           <NavBtn text="生活" type="food" />
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
