@@ -3,6 +3,28 @@ import { request } from '@umijs/max';
 
 const BaseUrl = 'http://localhost:8081/staff';
 
+interface resType {
+  code: number;
+  data: {
+    address?: string;
+    createAt: string;
+    description: string;
+    email?: string;
+    id: number;
+    imageUrl?: string;
+    isDeleted: number;
+    name: string;
+    promotion: string;
+    releaseTime: string;
+    tag: string;
+    telephone: string;
+    type: string;
+    updatedAt: string;
+    wechat?: string;
+  }[];
+  message: string;
+}
+
 export async function queryBusinessList(
   token: string,
   params: {
@@ -14,7 +36,7 @@ export async function queryBusinessList(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.Result_PageInfo_BusinessInfo__>(`${BaseUrl}/business`, {
+  return request<resType>(`${BaseUrl}/business`, {
     method: 'GET',
     params: {
       ...params,

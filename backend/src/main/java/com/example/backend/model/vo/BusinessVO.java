@@ -19,6 +19,8 @@ public class BusinessVO {
     private Long id;
     private String name;
     private String telephone;
+    private String type;
+    private String tag;
     private String wechat;
     private String email;
     private String address;
