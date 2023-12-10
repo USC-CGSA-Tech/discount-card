@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Layout from '@/components/layout';
+import { HeaderType } from '@/components/header';
 
 interface NavBtnProps {
   text: string;
@@ -21,7 +22,7 @@ function NavBtn(props: NavBtnProps) {
 
 function Home() {
   return (
-    <Layout>
+    <Layout type={HeaderType.LANDING}>
       <div className="px-5">
         <div className="flex flex-col justify-center items-center text-5xl py-8 font-bold">
           <div>USC CGSA</div>

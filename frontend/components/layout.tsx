@@ -1,15 +1,16 @@
 import React from 'react';
 import Footer from './footer';
-import Header from './header';
+import Header, { HeaderType } from './header';
 
 interface LayoutProps {
   children: JSX.Element;
+  type: HeaderType;
 }
 export default function Layout(props: LayoutProps): JSX.Element {
-  const { children } = props;
+  const { children, type } = props;
   return (
     <>
-      <Header />
+      <Header type={type} />
       {children}
       <Footer />
     </>
