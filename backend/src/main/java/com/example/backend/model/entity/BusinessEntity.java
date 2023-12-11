@@ -37,6 +37,7 @@ public class BusinessEntity {
     @ApiParam(value = "商家描述")
     private String description;
 
+    @ApiParam(value = "折扣描述")
     private String promotion;
 
     @ApiParam(value = "上线时间")

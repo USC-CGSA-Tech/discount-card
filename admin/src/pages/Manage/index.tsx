@@ -177,6 +177,7 @@ const ManagePage: React.FC = () => {
         actionRef={actionRef}
         toolBarRender={() => [
           <Access
+            key="access"
             accessible={access.canWrite()}
             fallback={
               <Button type="primary" disabled>

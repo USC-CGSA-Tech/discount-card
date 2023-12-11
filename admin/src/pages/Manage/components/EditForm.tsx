@@ -123,7 +123,7 @@ export default (props: UpdateFormProps) => {
           ]}
         />
       </ProForm.Item>
-      <ProForm.Item name="tag" label="标签">
+      <ProForm.Item name="tag" label="标签" rules={[{ required: true }]}>
         <ProFormSelect
           options={[
             { value: '车', label: '车' },
@@ -134,7 +134,6 @@ export default (props: UpdateFormProps) => {
           }}
           rules={[
             {
-              required: true,
               message: '选择标签',
               type: 'array',
             },
