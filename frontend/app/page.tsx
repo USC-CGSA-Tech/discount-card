@@ -40,7 +40,7 @@ function Home() {
         </div>
         <div className="flex justify-center text-xl pb-[52px]">关于此页面的介绍</div>
         <div className="px-8 pb-5">
-          <Carousel autoplay>
+          <Carousel autoplay lazyLoad="progressive">
             <div>
               <h3 style={contentStyle}>1</h3>
             </div>

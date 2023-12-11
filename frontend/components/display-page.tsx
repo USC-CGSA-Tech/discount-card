@@ -32,6 +32,28 @@ interface DisplayPageProps {
   type: string;
 }
 
+interface TabProps {
+  text: string;
+  type: string;
+  target: string;
+}
+
+function Tab(props: TabProps) {
+  const { text, type, target } = props;
+
+  return (
+    <div className="flex flex-col-reverse flex-1">
+      <div
+        className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
+          type === target ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
+        } text-center`}
+      >
+        <Link href={`/${target}`}>{text}</Link>
+      </div>
+    </div>
+  );
+}
+
 function InfoElement(item: resType) {
   const { id, name, description, address, imageUrl } = item;
 
@@ -84,33 +106,9 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
   return (
     <Layout type={HeaderType.CARDS}>
       <div className="bg-theme flex flex-row h-[72px] justify-between">
-        <div className="flex flex-col-reverse flex-1">
-          <div
-            className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'foods' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
-            } text-center`}
-          >
-            <Link href="/foods">美食</Link>
-          </div>
-        </div>
-        <div className="flex flex-col-reverse flex-1">
-          <div
-            className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'entertainment' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
-            } text-center`}
-          >
-            <Link href="/entertainment">娱乐</Link>
-          </div>
-        </div>
-        <div className="flex flex-col-reverse flex-1">
-          <div
-            className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'life' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
-            } text-center`}
-          >
-            <Link href="/life">生活</Link>
-          </div>
-        </div>
+        <Tab text="美食" type={type} target="foods" />
+        <Tab text="娱乐" type={type} target="entertainment" />
+        <Tab text="生活" type={type} target="life" />
       </div>
       <div className="px-7">
         {Object.keys(dataSplitByCategory).map((category: string) => (

@@ -45,7 +45,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     let link = '/';
     switch (category) {
       case '美食':
-        link = '/food';
+        link = '/foods';
         break;
       case '娱乐':
         link = '/entertainment';
