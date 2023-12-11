@@ -90,7 +90,18 @@ public class StaffController {
         return Response.ok(list);
     }
 
+    @ApiOperation("Get Record By Id")
+    @GetMapping(value = "/business/{id}")
+    public Response getBusinessCardById(@PathVariable long id) {
+        BusinessVO businessCard;
+        try {
+            businessCard = staffService.getBusinessCardById(id);
+        } catch (Exception e) {
+            return Response.fail(400, "折扣卡不存在");
+        }
 
+        return Response.ok(businessCard);
+    }
 
 
 }

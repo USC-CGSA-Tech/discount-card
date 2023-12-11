@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Layout from '@/components/layout';
 import { HeaderType } from '@/components/header';
-import fetchData from '@/util/fetch-data';
+import { fetchList } from '@/util/fetch-data';
 
 const typeConversion = {
   foods: '美食',
@@ -10,7 +10,7 @@ const typeConversion = {
   life: '生活',
 };
 
-interface resType {
+export interface resType {
   address?: string;
   createAt: string;
   description: string;
@@ -36,14 +36,16 @@ function InfoElement(item: resType) {
   const { id, name, description, address, imageUrl } = item;
 
   return (
-    <div key={id} className="flex flex-row justify-between pb-7">
-      <img className="w-[100px]" src={imageUrl} alt={name} />
-      <div className="w-full pl-4">
-        <div className="">{name}</div>
-        <div className="">地址：{address}</div>
-        <div className="">折扣：{description}</div>
+    <Link href={`/card/${id}`} key={id}>
+      <div className="flex flex-row justify-between pb-7">
+        <img className="w-[100px]" src={imageUrl} alt={name} />
+        <div className="w-full pl-4">
+          <div className="">{name}</div>
+          <div className="">地址：{address}</div>
+          <div className="">折扣：{description}</div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -54,7 +56,7 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
 
   useEffect(() => {
     const fetchDataAsync = async () => {
-      const res = await fetchData();
+      const res = await fetchList();
       setData(res);
     };
 

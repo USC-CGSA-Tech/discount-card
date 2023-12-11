@@ -23,7 +23,7 @@ function NavBtn(props: NavBtnProps) {
 
   return (
     <Link href={{ pathname: type }}>
-      <div className="w-[100px] rounded-lg bg-theme text-4xl text-white h-[60px] flex items-center justify-center">
+      <div className="max-w-[100px] rounded-lg bg-theme text-xl text-white max-h-[60px] flex items-center justify-center p-2">
         {text}
       </div>
     </Link>
