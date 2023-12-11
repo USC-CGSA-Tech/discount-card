@@ -34,7 +34,7 @@ function Home() {
   return (
     <Layout type={HeaderType.LANDING}>
       <div className="px-5">
-        <div className="flex flex-col justify-center items-center text-5xl py-8 font-bold">
+        <div className="flex flex-col justify-center items-center text-5xl py-8 font-bold text-center">
           <div>USC CGSA</div>
           <div>折扣卡商家</div>
         </div>

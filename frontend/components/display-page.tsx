@@ -87,7 +87,7 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
         <div className="flex flex-col-reverse flex-1">
           <div
             className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'foods' ? 'h-3/4 text-5xl' : 'h-1/2 text-3xl'
+              type === 'foods' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
             } text-center`}
           >
             <Link href="/foods">美食</Link>
@@ -96,7 +96,7 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
         <div className="flex flex-col-reverse flex-1">
           <div
             className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'entertainment' ? 'h-3/4 text-5xl' : 'h-1/2 text-3xl'
+              type === 'entertainment' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
             } text-center`}
           >
             <Link href="/entertainment">娱乐</Link>
@@ -105,7 +105,7 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
         <div className="flex flex-col-reverse flex-1">
           <div
             className={`rounded-tl-[36px] rounded-tr-[36px] bg-white flex flex-col-reverse ${
-              type === 'life' ? 'h-3/4 text-5xl' : 'h-1/2 text-3xl'
+              type === 'life' ? 'h-3/4 text-4xl' : 'h-1/2 text-3xl'
             } text-center`}
           >
             <Link href="/life">生活</Link>

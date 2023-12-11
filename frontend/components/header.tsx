@@ -56,7 +56,6 @@ export default function Header(props: HeaderProps): JSX.Element {
       default:
         link = '/';
     }
-    console.log(category);
 
     return (
       <div className="h-16">
