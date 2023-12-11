@@ -1,3 +1,1 @@
-export default {
-  backendURL: 'http://localhost:8081',
-}
+export const backendURL = 'http://localhost:8081';
