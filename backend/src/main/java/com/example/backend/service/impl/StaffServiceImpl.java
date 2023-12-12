@@ -76,4 +76,16 @@ public class StaffServiceImpl implements StaffService {
         List<BusinessVO> list = mapper.selectPage(page , wrapper).getRecords();
         return list;
     }
+
+    @Override
+    public BusinessVO getBusinessCardById(long id) {
+        LambdaQueryWrapper<BusinessVO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(BusinessVO::getId, id);
+        BusinessVO businessCard = mapper.selectOne(wrapper);
+
+        if (businessCard == null) {
+            throw new CustomException("折扣卡不存在");
+        }
+        return businessCard;
+    }
 }

@@ -15,4 +15,6 @@ public interface StaffService {
 
 
     List<BusinessVO> getAll(Integer index, Integer pageSize);
+
+    BusinessVO getBusinessCardById(long id);
 }

@@ -19,14 +19,16 @@ public class BusinessVO {
     private Long id;
     private String name;
     private String telephone;
+    private String type;
+    private String tag;
     private String wechat;
     private String email;
     private String address;
     private String description;
     private String promotion;
     private String imageUrl;
-    private Date releaseTime;
-    private Date createdAt;
-    private Date updatedAt;
+    private String releaseTime;
+    private String createdAt;
+    private String updatedAt;
     private Integer isDeleted;
 }

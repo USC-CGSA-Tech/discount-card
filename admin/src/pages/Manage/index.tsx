@@ -2,6 +2,7 @@ import services from '@/services/business';
 import {
   ActionType,
   PageContainer,
+  ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
 import { Access, useAccess, useModel } from '@umijs/max';
@@ -66,11 +67,21 @@ const ManagePage: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const access = useAccess();
   const { token } = useModel('@@initialState').initialState;
-  const columns = [
+  const columns: ProColumns<any, string>[] = [
     {
       title: '商家名称',
       dataIndex: 'name',
       valueType: 'text',
+    },
+    {
+      title: '类型',
+      dataIndex: 'type',
+      valueType: 'text',
+    },
+    {
+      title: '标签',
+      dataIndex: 'tag',
+      valueType: 'divider',
     },
     {
       title: '电话',
@@ -117,8 +128,12 @@ const ManagePage: React.FC = () => {
       title: '操作',
       valueType: 'option',
       width: 150,
-      render: (text, record, _, action) => [
-        <Access accessible={access.canWrite()} fallback={<div>没有权限</div>}>
+      render: (text, record, i) => [
+        <Access
+          key={i}
+          accessible={access.canWrite()}
+          fallback={<div>没有权限</div>}
+        >
           <a
             key="editable"
             onClick={() => {
@@ -162,6 +177,7 @@ const ManagePage: React.FC = () => {
         actionRef={actionRef}
         toolBarRender={() => [
           <Access
+            key="access"
             accessible={access.canWrite()}
             fallback={
               <Button type="primary" disabled>
@@ -183,15 +199,19 @@ const ManagePage: React.FC = () => {
             ,
           </Access>,
         ]}
-        request={async (params, sorter, filter) => {
+        request={async (params) => {
           const res = await queryBusinessList(token, {
             ...params,
           });
           if (res.code !== 200) {
             message.error(res.message);
           }
+
           const ret = {
-            data: res.data || [],
+            data: res.data.map((item) => ({
+              ...item,
+              tag: item.tag.split(', '),
+            })),
             success: res.code === 200,
           };
           return ret;
@@ -207,6 +227,7 @@ const ManagePage: React.FC = () => {
 
           value.telephone = extractPhone(value.phone);
           value.imageUrl = '';
+          value.tag = value.tag.join(', ');
 
           if (value.image?.length === 1) {
             const imageResponse = value.image[0].response;

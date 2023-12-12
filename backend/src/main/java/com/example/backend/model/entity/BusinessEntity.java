@@ -22,6 +22,12 @@ public class BusinessEntity {
     @ApiParam(value = "微信")
     private String wechat;
 
+    @ApiParam(value = "优惠类型")
+    private String type;
+
+    @ApiParam(value = "折扣卡标签")
+    private String tag;
+
     @ApiParam(value = "邮件")
     private String email;
 
@@ -31,6 +37,7 @@ public class BusinessEntity {
     @ApiParam(value = "商家描述")
     private String description;
 
+    @ApiParam(value = "折扣描述")
     private String promotion;
 
     @ApiParam(value = "上线时间")

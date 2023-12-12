@@ -1,6 +1,5 @@
 package com.example.backend.controller;
 
-import com.example.backend.exception.CustomException;
 import com.example.backend.model.Response.Response;
 import com.example.backend.model.entity.BusinessEntity;
 import com.example.backend.model.vo.BusinessVO;
@@ -56,9 +55,9 @@ public class StaffController {
     })
     @ApiOperation("Upload a photo")
     @PostMapping(value = "/upload")
-    public Response upload(@RequestParam("photo") MultipartFile photo) {
+    public Response upload(@RequestParam("file") MultipartFile file) {
         try {
-            String photoUrl = awsService.upload(photo);
+            String photoUrl = awsService.upload(file);
             return Response.ok(photoUrl);
         } catch (Exception e) {
             return Response.fail(e.getMessage());
@@ -91,7 +90,18 @@ public class StaffController {
         return Response.ok(list);
     }
 
+    @ApiOperation("Get Record By Id")
+    @GetMapping(value = "/business/{id}")
+    public Response getBusinessCardById(@PathVariable long id) {
+        BusinessVO businessCard;
+        try {
+            businessCard = staffService.getBusinessCardById(id);
+        } catch (Exception e) {
+            return Response.fail(400, "折扣卡不存在");
+        }
 
+        return Response.ok(businessCard);
+    }
 
 
 }
