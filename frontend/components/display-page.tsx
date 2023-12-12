@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Spin } from 'antd';
 import Layout from '@/components/layout';
 import { HeaderType } from '@/components/header';
 import { fetchList } from '@/util/fetch-data';
@@ -105,21 +106,29 @@ function DisplayPage(props: DisplayPageProps): JSX.Element {
 
   return (
     <Layout type={HeaderType.CARDS}>
-      <div className="bg-theme flex flex-row h-[72px] justify-between">
-        <Tab text="美食" type={type} target="foods" />
-        <Tab text="娱乐" type={type} target="entertainment" />
-        <Tab text="生活" type={type} target="life" />
-      </div>
-      <div className="px-7">
-        {Object.keys(dataSplitByCategory).map((category: string) => (
-          <div key={category}>
-            <div className="text-3xl font-bold py-4 border-b-neutral-400 border-b">{category}</div>
-            <div className="pt-4">
-              {dataSplitByCategory[category].map((item: resType) => InfoElement(item))}
-            </div>
+      {dataSplitByCategory ? (
+        <div>
+          <div className="bg-theme flex flex-row h-[72px] justify-between">
+            <Tab text="美食" type={type} target="foods" />
+            <Tab text="娱乐" type={type} target="entertainment" />
+            <Tab text="生活" type={type} target="life" />
           </div>
-        ))}
-      </div>
+          <div className="px-7">
+            {Object.keys(dataSplitByCategory).map((category: string) => (
+              <div key={category}>
+                <div className="text-3xl font-bold py-4 border-b-neutral-400 border-b">
+                  {category}
+                </div>
+                <div className="pt-4">
+                  {dataSplitByCategory[category].map((item: resType) => InfoElement(item))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Spin />
+      )}
     </Layout>
   );
 }
